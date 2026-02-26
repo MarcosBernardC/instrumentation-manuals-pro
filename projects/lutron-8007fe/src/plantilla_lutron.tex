@@ -1,0 +1,44 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Fuentes y Estética
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[table]{xcolor}
+\usepackage{tcolorbox}
+
+% Colores Corporativos
+\definecolor{IndustrialBlue}{RGB}{0, 51, 102}
+
+\title{Especificaciones Técnicas: Instrumentación Lutron}
+\author{Localización Técnica Profesional}
+\date{Febrero 2026}
+
+\begin{document}
+\maketitle
+
+\section{Introducción}
+Este documento es una versión optimizada del manual de fábrica del modelo **8007fe**, rediseñada para mejorar la legibilidad y la precisión técnica mediante tipografía profesional.
+
+\section{Especificaciones Eléctricas}
+\begin{center}
+{\renewcommand{\arraystretch}{1.5} % Más espacio entre filas para legibilidad
+\begin{tabular}{|>{\columncolor{IndustrialBlue!10}\bfseries}l|l|l|}
+\hline
+\rowcolor{IndustrialBlue}
+\textcolor{white}{Rango} & \textcolor{white}{Resolución} & \textcolor{white}{Precisión} \\ \hline
+200.0 mT & 0.1 mT & $\pm$(5\% + 3d) \\ \hline
+2,000 mT & 1 mT & $\pm$(5\% + 3d) \\ \hline
+\end{tabular}}
+\end{center}
+
+\section{Notas de Seguridad}
+\begin{itemize}
+    \item No exceder el límite máximo de entrada del sensor.
+    \item Utilizar baterías de 9V certificadas para garantizar la estabilidad de la lectura.
+\end{itemize}
+
+\end{document}
