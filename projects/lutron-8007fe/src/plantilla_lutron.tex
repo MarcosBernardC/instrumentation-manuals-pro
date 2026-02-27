@@ -450,6 +450,47 @@
 \end{minipage}
 \endgroup
 
+% --- 6. MEDICIÓN DE RESISTENCIA (R) ---
+\subsection{6.1 Medición de Resistencia (R)}
+
+\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
+    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
+    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a la posición \textbf{"R"}.
+    \item \textbf{Configuración de Rango:} Gire el selector de función (\textbf{3-3}) hacia el rango máximo esperado.
+    \item \textbf{Conexión del Componente:} 
+        \begin{itemize}[label=$\rightarrow$, nosep]
+            \item Conecte los clips de prueba a la entrada de medición (\textbf{3-5}) y sujete la resistencia.
+            \item Alternativamente, inserte los terminales de la resistencia directamente en la \textbf{Entrada Directa (3-6)}.
+        \end{itemize}
+    \item \textbf{Lectura y Ajuste:} Observe el valor en la pantalla (\textbf{3-1}). 
+    \begin{itemize}[label=\color{IndustrialBlue}$\rightarrow$, nosep]
+        \item Si el display muestra \textbf{"1"}, seleccione el rango superior. Para optimizar la precisión, busque siempre el rango más bajo que permita una lectura.
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.4cm}
+
+% --- NOTA TÉCNICA DE PRECISIÓN (R) ---
+\vspace{0.4cm}
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\footnotesize \textbf{CONSIDERACIONES DE PRECISIÓN}} \\[0.2cm]
+    \scriptsize
+    \begin{itemize}[leftmargin=0.4cm, labelsep=0.2cm]
+        \item \textbf{Compensación de Resistencia Parásita:} 
+        Para obtener mediciones de alta precisión en los rangos más bajos (especialmente en 20~$\Omega$ y 200~$\Omega$), es necesario restar la resistencia propia de los cables de prueba (\textit{stray resistance}).
+        
+        \item \textbf{Procedimiento:} 
+        Cortocircuite los clips de prueba, registre el valor mostrado en pantalla y réstelo del valor final de la medición del componente.
+    \end{itemize}
+    \vspace{5pt}
+\end{minipage}
+\endgroup
+
 \vfill  
 \noindent\textit{* Calibración trazable bajo estándares internacionales de instrumentación.}
 
