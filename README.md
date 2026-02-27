@@ -17,11 +17,16 @@ Este repositorio contiene muestras de rediseño, traducción y optimización de 
 
 ### Proyecto Destacado: Lutron LCR-9083
 
-A continuación, se muestran las diferentes secciones del manual rediseñado:
+<div align="center">
+  <img src="projects/lutron-8007fe/imgs/LCR-9083_partes_pro.png" alt="Diagramas con TikZ" width="800px" style="border-radius: 8px; border: 1px solid #ddd;">
+  <p><em>Renderizado final de Diagramas con TikZ: Rediseño vectorial completo en LaTeX.</em></p>
+</div>
 
-|                       Portada Profesional                        |                       Diagramas con TikZ                       |                         Procedimientos Técnicos                         |
-| :--------------------------------------------------------------: | :------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| ![Portada](projects/lutron-8007fe/imgs/LCR-9083_portada_pro.png) | ![Partes](projects/lutron-8007fe/imgs/LCR-9083_partes_pro.png) | ![Procesos](projects/lutron-8007fe/imgs/LCR-9083_proc_medicion_pro.png) |
+<div align="center">
+  <img src="projects/lutron-8007fe/imgs/LCR-9083_portada_pro.png" alt="Portada Profesional" width="395px" style="border-radius: 6px;">
+  <img src="projects/lutron-8007fe/imgs/LCR-9083_proc_medicion_pro.png" alt="Procedimientos Técnicos" width="395px" style="border-radius: 6px;">
+  <p><em>Izquierda: Portada profesional. Derecha: Maquetación de procedimientos técnicos.</em></p>
+</div>
 
 ---
 
