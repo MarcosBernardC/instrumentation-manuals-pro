@@ -1,353 +1,343 @@
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish, english]{babel} % Para mantener términos técnicos si deseas
+\usepackage[spanish, english]{babel}
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage{enumitem}
-\usepackage[hidelinks]{hyperref} 
+\usepackage[hidelinks]{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
 \usepackage{fontawesome5}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{multirow}
 
-% Configuración de página DIN
-\geometry{a4paper, total={160mm,247mm}, left=25mm, top=30mm}
+% --- GEOMETRÍA ---
+\geometry{
+    a4paper,
+    left=25mm, right=20mm,
+    top=28mm,  bottom=28mm,
+    headheight=14pt
+}
 
-% Fuente tipo Helvetica
+% --- FUENTE SANS-SERIF ---
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 
-% Colores
-\definecolor{DarkGray}{RGB}{50, 50, 50}
-\definecolor{LightGray}{RGB}{240, 240, 240}
-\definecolor{AccentLine}{RGB}{100, 100, 100}
-\definecolor{IndustrialBlue}{RGB}{0, 51, 102}
+% --- COLORES ---
+\definecolor{DarkGray}{RGB}{50,50,50}
+\definecolor{LightGray}{RGB}{240,240,240}
+\definecolor{AccentLine}{RGB}{100,100,100}
+\definecolor{IndustrialBlue}{RGB}{0,51,102}
 
 \graphicspath{{../imgs/}}
 
-\usepackage{tikz}
-% Definición de círculos para los pasos
+% --- ENCABEZADO / PIE ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\footnotesize\color{DarkGray}\textbf{LCR-9083} --- Manual Técnico}
+\fancyhead[R]{\footnotesize\color{DarkGray}Lutron Precision Components}
+\fancyfoot[C]{\footnotesize\color{DarkGray}\thepage}
+
+% --- SECCIONES ---
+\usepackage{titlesec}
+
+% FIX: argumento after-code envuelto en {} para proteger corchetes internos
+\titleformat{\section}
+    {\fontsize{12pt}{14pt}\selectfont\bfseries\color{IndustrialBlue}}
+    {\thesection.}{0.6em}{}
+    [{\vspace{2pt}\color{AccentLine}\titlerule[0.4pt]\vspace{4pt}}]
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+
+\titleformat{\subsection}
+    {\fontsize{11pt}{13pt}\selectfont\bfseries\color{DarkGray}}
+    {\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{12pt}{5pt}
+
+\titleformat{\subsubsection}
+    {\fontsize{10.5pt}{12pt}\selectfont\bfseries\color{DarkGray}}
+    {\thesubsubsection.}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% --- INTERLINEADO ---
+\setstretch{1.15}
+
+% --- LISTAS ---
+\setlist{itemsep=3pt, parsep=0pt, topsep=4pt}
+\setlist[enumerate]{itemsep=4pt, parsep=0pt, topsep=4pt}
+
+% --- CÍRCULOS NUMERADOS ---
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
-    \node[shape=circle,fill=DarkGray,inner sep=1.2pt] (char) {\textcolor{white}{\fontsize{7}{8}\selectfont #1}};}}
+    \node[shape=circle,fill=DarkGray,inner sep=1.5pt] (char)
+        {\textcolor{white}{\fontsize{7}{8}\selectfont #1}};}}
 
+% --- ÍNDICE ---
 \usepackage{tocloft}
-
-% 1. Activar los puntos de guía (dots) para las secciones
 \renewcommand{\cftsecdotsep}{\cftdotsep}
-
-% 2. Personalizar el título del índice (en lugar de \@cftmaketoc)
-\renewcommand{\cfttoctitlefont}{\hfill\bfseries\Large} % Fuente del título
-\renewcommand{\cftaftertoctitle}{\hfill}               % Centrado
-\renewcommand{\contentsname}{CONTENIDO DEL MANUAL (INDEX)} % El texto
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\large}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\contentsname}{CONTENIDO DEL MANUAL (INDEX)}
 \setlength{\cftbeforetoctitleskip}{0.3cm}
 \setlength{\cftaftertoctitleskip}{0.8cm}
-
-% 3. Estilo de los números de página y títulos
 \renewcommand{\cftsecfont}{\small\bfseries\color{DarkGray}}
 \renewcommand{\cftsecpagefont}{\small\bfseries\color{DarkGray}}
 \renewcommand{\cftsubsecfont}{\footnotesize\color{black}}
+\setlength{\cftbeforesecskip}{0.35cm}
+\setlength{\cftbeforesubsecskip}{0.08cm}
 
-% Aumentar el espacio antes de cada sección en el índice
-\setlength{\cftbeforesecskip}{0.4cm} 
-
-% Aumentar el espacio antes de las subsecciones (opcional, para que no queden pegadas)
-\setlength{\cftbeforesubsecskip}{0.1cm}
-
-% Quitar la negrita de los números de página para un look más limpio (DIN Style)
-\renewcommand{\cftsecpagefont}{\small\fontfamily{phv}\selectfont}
+% --- BLOQUE REUTILIZABLE: NOTAS TÉCNICAS ---
+\newcommand{\notastecnicas}[2]{%
+    \vspace{6pt}
+    \noindent
+    \begingroup
+    \color{DarkGray}
+    \hspace{0.5cm}\vrule width 2pt\hspace{12pt}%
+    \begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+        \vspace{4pt}
+        {\small\textbf{#1}}\\[0.15cm]
+        \footnotesize #2
+        \vspace{4pt}
+    \end{minipage}
+    \endgroup
+    \vspace{6pt}
+}
 
 \begin{document}
 
-% --- PORTADA ---
+% ============================================================
+% PORTADA
+% ============================================================
 \thispagestyle{empty}
-\noindent{\color{AccentLine}\rule{\textwidth}{0.8pt}} \\[0.5cm]
-\noindent{\fontsize{10pt}{12pt}\selectfont \uppercase{Documentación Técnica | Control de Calidad}} \\[1.5cm]
+\noindent{\color{AccentLine}\rule{\textwidth}{0.8pt}}\\[0.6cm]
+\noindent{\fontsize{9pt}{11pt}\selectfont\uppercase{Documentación Técnica | Control de Calidad}}\\[1.8cm]
 
-\noindent{\fontsize{14pt}{17pt}\selectfont \color{DarkGray} Inductancia $\cdot$ Capacitancia $\cdot$ Resistencia $\cdot$ Diodo} \\[0.4cm]
-\noindent{\fontsize{42pt}{45pt}\selectfont \textbf{Medidor LCR}} \\[0.2cm]
-\noindent{\fontsize{18pt}{22pt}\selectfont \color{gray} Modelo: \textbf{LCR-9083}} \vspace*{0.5cm} % Imagen más alta
+\noindent{\fontsize{13pt}{16pt}\selectfont\color{DarkGray}
+    Inductancia $\cdot$ Capacitancia $\cdot$ Resistencia $\cdot$ Diodo}\\[0.5cm]
+\noindent{\fontsize{40pt}{44pt}\selectfont\textbf{Medidor LCR}}\\[0.3cm]
+\noindent{\fontsize{16pt}{20pt}\selectfont\color{gray}Modelo: \textbf{LCR-9083}}\vspace{0.8cm}
 
 \begin{center}
-    \includegraphics[width=0.55\textwidth]{LCR-9083} 
+    \includegraphics[width=0.5\textwidth]{LCR-9083}
 \end{center}
-\vfill 
+\vfill
 
+% ============================================================
+% ÍNDICE
+% ============================================================
 \newpage
-% --- PÁGINA 2: ÍNDICE ---
 \thispagestyle{empty}
-\noindent{\color{AccentLine}\rule{\textwidth}{0.4pt}} \\[0.3cm]
-\noindent \textbf{CONTENIDO DEL MANUAL (INDEX)}
+\noindent{\color{AccentLine}\rule{\textwidth}{0.4pt}}\\[0.4cm]
+\noindent\textbf{CONTENIDO DEL MANUAL (INDEX)}
 \vspace{0.2cm}
 \begingroup
 \hypersetup{linkcolor=black}
 \makeatletter
-\renewcommand{\@dotsep}{10000} 
+\renewcommand{\@dotsep}{10000}
 \makeatother
-\tableofcontents 
+\tableofcontents
 \endgroup
 
 \vfill
-\noindent{\small \textbf{Lutron Precision Components} \\ High Reliability Measurement Systems}
+\noindent{\small\textbf{Lutron Precision Components}\\High Reliability Measurement Systems}
 
+% ============================================================
+% CUERPO
+% ============================================================
 \newpage
-% Reiniciar contador de páginas
 \pagenumbering{arabic}
 
-% --- SECCIÓN DE CARACTERÍSTICAS (FEATURES) ---
+% ------------------------------------------------------------
 \section{CARACTERÍSTICAS (FEATURES)}
 \label{sec:features}
 
-\begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1cm, itemsep=4pt]
+\begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1.2cm, itemsep=5pt]
     \item \textbf{Multifunción Digital:} Pantalla digital con alimentación por batería; permite mediciones de Inductancia, Capacitancia, Resistencia y prueba de Diodos.
-    \item \textbf{Circuito LSI:} Incorpora circuitería de integración a gran escala (LSI) que garantiza una alta confiabilidad y durabilidad operativa.
+    \item \textbf{Circuito LSI:} Incorpora circuitería de integración a gran escala (LSI) que garantiza alta confiabilidad y durabilidad operativa.
     \item \textbf{Visibilidad LCD:} Pantalla diseñada para lecturas claras incluso en condiciones de alta luminosidad ambiental.
     \item \textbf{Protección de Entrada:} Sistema integrado de protección contra sobrecarga en todos los rangos.
     \item \textbf{Selector Ergonómico:} Selector de funciones tipo rotativo para una operación simplificada y rápida.
     \item \textbf{Indicador de Estado:} Sistema de alerta de batería baja para prevenir errores de medición.
 \end{itemize}
 
-\vspace{0.8cm}
-
-% --- ESPECIFICACIONES ---
+% ------------------------------------------------------------
 \section{ESPECIFICACIONES}
 \label{sec:specifications}
 
 \subsection{Especificaciones Generales}
 
 \begin{center}
-    {\renewcommand{\arraystretch}{1.6} % Altura de celda para mayor comodidad visual
-    \small
-    \begin{tabular}{l p{9.5cm}}
-        \rowcolor{LightGray}
-        \textbf{Característica} & \textbf{Detalle Técnico} \\
-        Display & LCD de 18 mm (0.7"), lectura máxima de 1999. \\
-        Mediciones & \textbf{Inductancia:} 2 mH a 2 H (5 rangos). \newline 
-                     \textbf{Capacitancia:} 2 nF a 200 $\mu$F (6 rangos). \newline 
-                     \textbf{Resistencia:} 200 $\Omega$ a 20 M$\Omega$ (6 rangos). \newline 
-                     Prueba de diodo. \\
-        Sobre-entrada & Indicación de marca "1" en pantalla. \\
-        Tiempo de Muestreo & Aproximadamente 0.4 segundos. \\
-        Temp. y Humedad & 0 $^\circ$C a 50 $^\circ$C (32 $^\circ$F a 122 $^\circ$F). \newline Humedad relativa menor al 80\% RH. \\
-        Alimentación & Batería 006 P DC 9V (Heavy Duty). \\
-        Dimensiones & 185 x 87 x 39 mm (7.3 x 3.4 x 1.5 pulgadas). \\
-        Peso & 280 g / 0.62 LB. \\
-        Consumo Energético & Medición R: aprox. 9 mA máx. \newline Medición L \& C: aprox. 13 mA máx. \\
-        Accesorios Incluidos & Manual de instrucciones (1 un), Clips de prueba tipo cocodrilo (1 par). \\
-        \hline
-    \end{tabular}}
+{\renewcommand{\arraystretch}{1.7}\small
+\begin{tabular}{l p{9.5cm}}
+    \rowcolor{LightGray}
+    \textbf{Característica} & \textbf{Detalle Técnico} \\
+    Display & LCD de 18 mm (0.7''), lectura máxima de 1999. \\
+    Mediciones &
+        \textbf{Inductancia:} 2 mH a 2 H (5 rangos). \newline
+        \textbf{Capacitancia:} 2 nF a 200 $\mu$F (6 rangos). \newline
+        \textbf{Resistencia:} 200 $\Omega$ a 20 M$\Omega$ (6 rangos). \newline
+        Prueba de diodo. \\
+    Sobre-entrada & Indicación de marca ''1'' en pantalla. \\
+    Tiempo de Muestreo & Aproximadamente 0.4 segundos. \\
+    Temp.\ y Humedad &
+        0 $^\circ$C a 50 $^\circ$C (32 $^\circ$F a 122 $^\circ$F). \newline
+        Humedad relativa menor al 80\% RH. \\
+    Alimentación & Batería 006P DC 9V (Heavy Duty). \\
+    Dimensiones & 185 $\times$ 87 $\times$ 39 mm (7.3 $\times$ 3.4 $\times$ 1.5 pulgadas). \\
+    Peso & 280 g / 0.62 LB. \\
+    Consumo Energético &
+        Medición R: aprox.\ 9 mA máx. \newline
+        Medición L \& C: aprox.\ 13 mA máx. \\
+    Accesorios Incluidos &
+        Manual de instrucciones (1 un),
+        Clips de prueba tipo cocodrilo (1 par). \\
+    \hline
+\end{tabular}}
 \end{center}
-
 
 \subsection{Especificaciones Eléctricas (23 $\pm$ 5 $^{\circ}$C)}
 
-% --- A. INDUCTANCIA ---
 \subsubsection{Inductancia}
 \begin{center}
-    {\renewcommand{\arraystretch}{1.5} \small
-    \begin{tabular}{l l l l l}
-        \rowcolor{LightGray} \textbf{Rango} & \textbf{Visualización} & \textbf{Resolución} & \textbf{Precisión} & \textbf{Límite Res.} \\
-        * 2 mH & 0.02 mH - 2 mH & 1 $\mu$H & $\pm$(3\% + 3d) & $<$ 2 $\Omega$ \\
-        20 mH & 2 mH - 20 mH & 10 $\mu$H & $\pm$(3\% + 3d) & $<$ 100 $\Omega$ \\
-        200 mH & 20 mH - 200 mH & 100 $\mu$H & $\pm$(3\% + 3d) & $<$ 500 $\Omega$ \\
-        2 H & 0.2 H - 2 H & 1 mH & $\pm$(3\% + 3d) & --- \\
-        20 H & 2 H - 20 H & 10 mH & $\pm$(5\% + 5d) & --- \\ \hline
-    \end{tabular}}
+{\renewcommand{\arraystretch}{1.6}\small
+\begin{tabular}{lllll}
+    \rowcolor{LightGray}
+    \textbf{Rango} & \textbf{Visualización} & \textbf{Resolución} & \textbf{Precisión} & \textbf{Lím.\ Res.} \\
+    * 2 mH  & 0.02 mH -- 2 mH   & 1 $\mu$H   & $\pm$(3\%+3d) & $<$2 $\Omega$   \\
+      20 mH & 2 mH -- 20 mH     & 10 $\mu$H  & $\pm$(3\%+3d) & $<$100 $\Omega$ \\
+     200 mH & 20 mH -- 200 mH   & 100 $\mu$H & $\pm$(3\%+3d) & $<$500 $\Omega$ \\
+       2 H  & 0.2 H -- 2 H      & 1 mH       & $\pm$(3\%+3d) & ---             \\
+      20 H  & 2 H -- 20 H       & 10 mH      & $\pm$(5\%+5d) & ---             \\ \hline
+\end{tabular}}
 \end{center}
 
-\vspace{0.6cm}
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} % Sangría inicial
-\vrule width 2pt \hspace{15pt} % Barra lateral de acento
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\small \textbf{NOTAS TÉCNICAS Y COMPENSACIÓN}} \\[0.2cm]
-    
-    \begin{tabular}{@{}p{6cm} p{6cm}}
-        \footnotesize $\bullet$ \textbf{Unidades:} $\mu$H ($10^{-6}$H), mH ($10^{-3}$H) & 
-        \footnotesize $\bullet$ \textbf{Frecuencia:} $\approx$ 200 Hz \\
-        \footnotesize $\bullet$ \textbf{Parásita (2 mH):} 0 $\mu$H & 
-        \footnotesize $\bullet$ \textbf{Cortocircuito:} Valor en corto \\
+\notastecnicas{NOTAS TÉCNICAS Y COMPENSACIÓN}{%
+    \begin{tabular}{@{}p{6cm}p{6cm}}
+        $\bullet$ \textbf{Unidades:} $\mu$H ($10^{-6}$H), mH ($10^{-3}$H) &
+        $\bullet$ \textbf{Frecuencia:} $\approx$ 200 Hz \\
+        $\bullet$ \textbf{Parásita (2 mH):} 0 $\mu$H &
+        $\bullet$ \textbf{Cortocircuito:} Valor en corto \\
     \end{tabular}
-    
-    \vspace{0.3cm}
-    \footnotesize
-    \textbf{Procedimiento:} Para el rango de 2 mH, reste la \textbf{inductancia parásita} de la lectura del equipo:
-    
-    \vspace{0.3cm}
-    \textit{Ejemplo práctico:} \\
-    \scalebox{0.95}{
-        \fboxsep=8pt\colorbox{LightGray}{
-            Lectura: 7 $\mu$H \quad -- \quad Corto: $-15$ $\mu$H \quad $\rightarrow$ \quad \textbf{Valor Real: 22 $\mu$H}
-        }
-    }
-    \vspace{5pt}
-\end{minipage}
-\endgroup
-\vspace{0.8cm}
 
-\vspace{0.6cm}
+    \vspace{0.3cm}
+    \textbf{Procedimiento:} Para el rango de 2 mH, reste la \textbf{inductancia parásita} de la lectura:
 
-% --- B. CAPACITANCIA ---
+    \vspace{0.2cm}
+    \textit{Ejemplo:}\\[2pt]
+    \scalebox{0.95}{\fboxsep=8pt\colorbox{LightGray}{%
+        Lectura: 7 $\mu$H \quad -- \quad Corto: $-15\,\mu$H \quad $\rightarrow$ \quad \textbf{Valor Real: 22 $\mu$H}%
+    }}
+}
+
 \subsubsection{Capacitancia}
 \begin{center}
-    {\renewcommand{\arraystretch}{1.5} \small
-    \begin{tabular}{l l l l l}
-        \rowcolor{LightGray} \textbf{Rango} & \textbf{Visualización} & \textbf{Resolución} & \textbf{Frecuencia} & \textbf{Precisión} \\
-        * 2 nF & 10 pF - 2 nF & 1 pF & 200 Hz & $\pm$(3\% + 3d) \\
-        20 nF & 200 pF - 20 nF & 10 pF & 200 Hz & $\pm$(3\% + 3d) \\
-        200 nF & 2 nF - 200 nF & 100 pF & 200 Hz & $\pm$(3\% + 3d) \\
-        2 $\mu$F & 0.02 $\mu$F - 2 $\mu$F & 1 nF & 200 Hz & $\pm$(3\% + 3d) \\
-        20 $\mu$F & 0.2 $\mu$F - 20 $\mu$F & 10 nF & 200 Hz & $\pm$(3\% + 3d) \\
-        200 $\mu$F & 2 $\mu$F - 200 $\mu$F & 100 nF & 30 Hz & $\pm$(3\% + 3d) \\ \hline
-    \end{tabular}}
+{\renewcommand{\arraystretch}{1.6}\small
+\begin{tabular}{lllll}
+    \rowcolor{LightGray}
+    \textbf{Rango} & \textbf{Visualización} & \textbf{Resolución} & \textbf{Frecuencia} & \textbf{Precisión} \\
+    * 2 nF     & 10 pF -- 2 nF              & 1 pF    & 200 Hz & $\pm$(3\%+3d) \\
+      20 nF    & 200 pF -- 20 nF            & 10 pF   & 200 Hz & $\pm$(3\%+3d) \\
+     200 nF    & 2 nF -- 200 nF             & 100 pF  & 200 Hz & $\pm$(3\%+3d) \\
+     2 $\mu$F  & 0.02 $\mu$F -- 2 $\mu$F   & 1 nF    & 200 Hz & $\pm$(3\%+3d) \\
+    20 $\mu$F  & 0.2 $\mu$F -- 20 $\mu$F   & 10 nF   & 200 Hz & $\pm$(3\%+3d) \\
+   200 $\mu$F  & 2 $\mu$F -- 200 $\mu$F    & 100 nF  & 30 Hz  & $\pm$(3\%+3d) \\ \hline
+\end{tabular}}
 \end{center}
 
-\vspace{0.6cm}
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} % Sangría inicial
-\vrule width 2pt \hspace{15pt} % Barra lateral de acento
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\small \textbf{NOTAS TÉCNICAS Y COMPENSACIÓN}} \\[0.2cm]
-    
-    \begin{tabular}{@{}p{6cm} p{6cm}}
-        \footnotesize $\bullet$ \textbf{Unidades:} pF ($10^{-12}$F), nF ($10^{-9}$F), $\mu$F ($10^{-6}$F) & 
-        \footnotesize $\bullet$ \textbf{Frecuencia:} Ver tabla de rangos \\
-        \footnotesize $\bullet$ \textbf{Parásita (2 nF):} 30 pF & 
-        \footnotesize $\bullet$ \textbf{Circuito Abierto:} Valor en abierto \\
+\notastecnicas{NOTAS TÉCNICAS Y COMPENSACIÓN}{%
+    \begin{tabular}{@{}p{6cm}p{6cm}}
+        $\bullet$ \textbf{Unidades:} pF ($10^{-12}$F), nF ($10^{-9}$F), $\mu$F ($10^{-6}$F) &
+        $\bullet$ \textbf{Frecuencia:} Ver tabla de rangos \\
+        $\bullet$ \textbf{Parásita (2 nF):} 30 pF &
+        $\bullet$ \textbf{Circuito Abierto:} Valor en abierto \\
     \end{tabular}
-    
-    \vspace{0.3cm}
-    \footnotesize
-    \textbf{Procedimiento:} Para el rango de 2 nF, reste la \textbf{capacitancia parásita} de la lectura del equipo para obtener el valor real:
-    
-    \vspace{0.3cm}
-    \textit{Ejemplo práctico:} \\
-    \scalebox{0.95}{
-        \fboxsep=8pt\colorbox{LightGray}{
-            Lectura: 32 pF \quad -- \quad Abierto: 12 pF \quad $\rightarrow$ \quad \textbf{Valor Real: 20 pF}
-        }
-    }
-    \vspace{5pt}
-\end{minipage}
-\endgroup
-\vspace{0.8cm}
 
-% --- C. RESISTENCIA ---
+    \vspace{0.3cm}
+    \textbf{Procedimiento:} Para el rango de 2 nF, reste la \textbf{capacitancia parásita} de la lectura:
+
+    \vspace{0.2cm}
+    \textit{Ejemplo:}\\[2pt]
+    \scalebox{0.95}{\fboxsep=8pt\colorbox{LightGray}{%
+        Lectura: 32 pF \quad -- \quad Abierto: 12 pF \quad $\rightarrow$ \quad \textbf{Valor Real: 20 pF}%
+    }}
+}
+
 \subsubsection{Resistencia}
 \begin{center}
-    {\renewcommand{\arraystretch}{1.5} \small
-    \begin{tabular}{l l l l}
-        \rowcolor{LightGray} \textbf{Rango} & \textbf{Resolución} & \textbf{Voltaje Circ. Abierto} & \textbf{Precisión} \\
-        200 $\Omega$ & 0.1 $\Omega$ & & \\
-        2 k$\Omega$   & 1 $\Omega$   & & \\
-        20 k$\Omega$  & 10 $\Omega$  & \centering Approx. DC 3 V & \\
-        200 k$\Omega$ & 100 $\Omega$ & & $\pm$(2\% + 3d) \\
-        2000 k$\Omega$ & 1 k$\Omega$ & & \\
-        20 M$\Omega$  & 10 k$\Omega$ & \centering Approx. DC 1.5 V & \\ \hline
-    \end{tabular}}
+{\renewcommand{\arraystretch}{1.6}\small
+\begin{tabular}{llll}
+    \rowcolor{LightGray}
+    \textbf{Rango} & \textbf{Resolución} & \textbf{V.\ Circ.\ Abierto} & \textbf{Precisión} \\
+    200 $\Omega$   & 0.1 $\Omega$  & \multirow{4}{*}{Aprox.\ DC 3 V}   & \multirow{6}{*}{$\pm$(2\%+3d)} \\
+    2 k$\Omega$    & 1 $\Omega$    & & \\
+    20 k$\Omega$   & 10 $\Omega$   & & \\
+    200 k$\Omega$  & 100 $\Omega$  & & \\
+    2000 k$\Omega$ & 1 k$\Omega$   & \multirow{2}{*}{Aprox.\ DC 1.5 V} & \\
+    20 M$\Omega$   & 10 k$\Omega$  & & \\ \hline
+\end{tabular}}
 \end{center}
 
-% --- D. PRUEBA DE DIODO ---
 \subsubsection{Prueba de Diodo}
-\begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1cm, nosep]
+\begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1.2cm, itemsep=4pt]
     \item \textbf{Funcionalidad:} Prueba de conducción y estado de componentes (bueno/defectuoso).
     \item \textbf{Medición $V_F$:} Lectura aproximada del voltaje de umbral (Forward Voltage).
     \item \textbf{Voltaje de circuito abierto:} DC 3 V.
 \end{itemize}
 
-\vspace{0.8cm}
+\notastecnicas{NOTAS SOBRE AJUSTE Y TRAZABILIDAD (L/C)}{%
+    \textbf{a. Ajuste de Precisión:} Aunque la frecuencia interna es $\approx$ 250 Hz, los ajustes se comparan con estándares:
 
-% --- NOTA ÚNICA DE CALIBRACIÓN (CIERRE DE ESPECIFICACIONES) ---
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} \vrule width 2pt \hspace{15pt}
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\small \textbf{NOTAS SOBRE AJUSTE Y TRAZABILIDAD (L/C)}} \\[0.2cm]
-    \footnotesize
-    \textbf{a. Ajuste de Precisión:} Aunque la frecuencia de prueba interna es de $\approx$ 250 Hz, los ajustes se comparan con estándares de referencia según los siguientes criterios:
-    
     \vspace{0.2cm}
     \begin{center}
-        \begin{tabular}{l l l}
-            \rowcolor{LightGray!50} \textbf{Función} & \textbf{Rangos} & \textbf{Frecuencia Estándar} \\
-            Capacitancia / Inductancia & Bajos (hasta 2 $\mu$F / 2 H) & 1 kHz \\
-            Capacitancia / Inductancia & Altos (20 $\mu$F / 20 H y sup.) & 100 Hz \\
-        \end{tabular}
+    \begin{tabular}{lll}
+        \rowcolor{LightGray!50}
+        \textbf{Función} & \textbf{Rangos} & \textbf{Frec.\ Estándar} \\
+        Cap.\ / Ind. & Bajos (hasta 2 $\mu$F / 2 H)    & 1 kHz  \\
+        Cap.\ / Ind. & Altos (20 $\mu$F / 20 H y sup.) & 100 Hz \\
+    \end{tabular}
     \end{center}
 
     \vspace{0.2cm}
-    \textbf{b. Condiciones de Entorno:} Precisiones garantizadas bajo intensidad de campo RF $<$ 3 V/M y frecuencias $<$ 30 MHz.
-    \vspace{5pt}
-\end{minipage}
-\endgroup
+    \textbf{b. Condiciones de Entorno:} Precisiones garantizadas con campo RF $<$ 3 V/M y frecuencias $<$ 30 MHz.
+}
 
+% ------------------------------------------------------------
 \newpage
 \section{DESCRIPCIÓN DEL PANEL FRONTAL}
 \label{sec:panel}
 
 \begin{center}
 \begin{tikzpicture}[x=1cm, y=1cm]
-    % --- IMAGEN DEL MEDIDOR ---
-    % Se asume que la imagen está en imgs/LCR-9083.jpg relativo a la carpeta src
     \node[anchor=south west, inner sep=0pt] (imagen) at (0,0) {
         \includegraphics[width=0.55\textwidth]{../imgs/LCR-9083.jpg}
     };
-
-    % Sistema de coordenadas relativo sobre la imagen
     \begin{scope}[x={(imagen.south east)},y={(imagen.north west)}]
-        
-        % --- ESTILO DIN PRO (CON LÍNEAS MÁS GRUESAS) ---
         \tikzset{
-            % Línea sólida, grosor medio (Mittel), color neutro profesional
-            linea_ref/.style={-, DarkGray, line width=1.2pt}, 
-            % Punto de contacto ligeramente más grande para equilibrar el grosor
+            linea_ref/.style={-, DarkGray, line width=1.2pt},
             punto_contacto/.style={circle, fill=DarkGray, inner sep=1.5pt},
-            % Texto sutil y limpio
             texto/.style={font=\sffamily\scriptsize\bfseries, DarkGray, align=center}
         }
-
-        % --- PUNTOS DE REFERENCIA (Tus coordenadas mejoradas) ---
-
-        % 3-1 Pantalla (Display)
-        \draw[linea_ref] (0.25, 0.82) -- ++(-0.25, 0) node[left, texto] {3-1 PANTALLA};
-        \node[punto_contacto] at (0.25, 0.82) {}; 
-
-        % 3-4 Selector L/C o R
-        \draw[linea_ref] (0.27, 0.69) -- ++(-0.27, 0) node[left, texto] {3-4 SELECTOR\\L/C o R};
-        \node[punto_contacto] at (0.27, 0.69) {};
-
-        % 3-2 Interruptor Power
-        \draw[linea_ref] (0.7, 0.69) -- ++(0.25, 0) node[right, texto] {3-2 INTERRUPTOR\\POWER};
-        \node[punto_contacto] at (0.7, 0.69) {};
-
-        % 3-3 Selector de Rangos (Perilla)
-        \draw[linea_ref] (0.49, 0.51) -- ++(-0.49, 0) node[left, texto] {3-3 SELECTOR\\DE FUNCIÓN};
-        \node[punto_contacto] at (0.49, 0.51) {};
-
-        % 3-5 Terminales de Clip
-        \draw[linea_ref] (0.48, 0.27) -- ++(-0.46, 0) node[left, texto] {3-5 ENTRADA\\POR CLIPS};
-        \node[punto_contacto] at (0.48, 0.27) {};
-
-        % 3-6 Terminales Directas
-        \draw[linea_ref] (0.69, 0.334) -- ++(0.28, 0) node[right, texto] {3-6 ENTRADA\\DIRECTA};
-        \node[punto_contacto] at (0.69, 0.334) {};
-
+        \draw[linea_ref] (0.25,0.82) -- ++(-0.25,0) node[left,texto] {3-1 PANTALLA};
+        \node[punto_contacto] at (0.25,0.82) {};
+        \draw[linea_ref] (0.27,0.69) -- ++(-0.27,0) node[left,texto] {3-4 SELECTOR\\L/C o R};
+        \node[punto_contacto] at (0.27,0.69) {};
+        \draw[linea_ref] (0.7,0.69) -- ++(0.25,0) node[right,texto] {3-2 INTERRUPTOR\\POWER};
+        \node[punto_contacto] at (0.7,0.69) {};
+        \draw[linea_ref] (0.49,0.51) -- ++(-0.49,0) node[left,texto] {3-3 SELECTOR\\DE FUNCIÓN};
+        \node[punto_contacto] at (0.49,0.51) {};
+        \draw[linea_ref] (0.48,0.27) -- ++(-0.46,0) node[left,texto] {3-5 ENTRADA\\POR CLIPS};
+        \node[punto_contacto] at (0.48,0.27) {};
+        \draw[linea_ref] (0.69,0.334) -- ++(0.28,0) node[right,texto] {3-6 ENTRADA\\DIRECTA};
+        \node[punto_contacto] at (0.69,0.334) {};
     \end{scope}
 \end{tikzpicture}
 \end{center}
 
 \vspace{0.5cm}
-
-% --- LEYENDA TÉCNICA (Sustituye la lista anterior por esta) ---
-\begin{itemize}[leftmargin=1.5cm, labelsep=0.5cm]
+\begin{itemize}[leftmargin=1.5cm, labelsep=0.5cm, itemsep=5pt]
     \item[\textbf{3-1.}] \textbf{Pantalla:} LCD de 18 mm con lectura máxima de 1999.
     \item[\textbf{3-2.}] \textbf{Interruptor Power:} Encendido y apagado del equipo.
     \item[\textbf{3-3.}] \textbf{Selector de Función:} Perilla rotativa para selección de rangos.
@@ -356,244 +346,138 @@
     \item[\textbf{3-6.}] \textbf{Entrada Directa:} Ranuras para inserción de componentes.
 \end{itemize}
 
+% ------------------------------------------------------------
 \newpage
 \section{PROCEDIMIENTO DE MEDICIÓN}
 \label{sec:operacion}
 
-% --- 4.1 INDUCTANCIA ---
 \subsection{Medición de Inductancia (L)}
 
-\begin{enumerate}[label=\protect\circled{\arabic*}, leftmargin=1.2cm, itemsep=0.3cm]
-    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
-    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a la posición \textbf{"L/C"}.
-    \item \textbf{Rango Inicial:} Gire el selector de función (\textbf{3-3}) hasta el rango máximo esperado de inductancia. 
-    \item \textbf{Conexión:} Conecte los clips de prueba (tipo cocodrilo) a la entrada de medición (\textbf{3-5}) y luego sujete el inductor a medir.
-    \item \textbf{Lectura:} Observe el valor en la pantalla (\textbf{3-1}). 
-    \begin{itemize}[label=$\rightarrow$, nosep]
-        \item Si aparece un \textbf{"1"} en el display, indica que la medición está fuera de rango (\textit{Out-of-Range}). Seleccione el siguiente rango superior para obtener una lectura.
-    \end{itemize}
+\begin{enumerate}[label=\protect\circled{\arabic*}, leftmargin=1.4cm, itemsep=5pt]
+    \item \textbf{Encendido:} Deslice el interruptor (\textbf{3-2}) a la posición \textbf{``1''}.
+    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a \textbf{``L/C''}.
+    \item \textbf{Rango Inicial:} Gire el selector (\textbf{3-3}) al rango máximo esperado.
+    \item \textbf{Conexión:} Conecte los clips (tipo cocodrilo) a la entrada (\textbf{3-5}) y sujete el inductor.
+    \item \textbf{Lectura:} Observe la pantalla (\textbf{3-1}). Si aparece \textbf{``1''} (fuera de rango), seleccione el rango superior.
 \end{enumerate}
 
-\vspace{0.4cm}
-
-% --- NOTAS TÉCNICAS DE MEDICIÓN (L) ---
-\vspace{0.4cm}
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\footnotesize \textbf{CONSIDERACIONES TÉCNICAS DE MEDICIÓN}} \\[0.2cm]
-    \scriptsize
-    \begin{enumerate}[leftmargin=0.4cm, labelsep=0.2cm, itemsep=0.1cm]
-        \item \textbf{Valores desconocidos:} Si el inductor no posee marcado, inicie en el rango de \textbf{2 mH} e incremente la escala hasta obtener una lectura estable.
-        
-        \item \textbf{Límites de escala:} Los rangos de \textbf{200 mH}, \textbf{2 H} y \textbf{20 H} están optimizados para mediciones superiores al 10\% de su fondo de escala. Es normal obtener lecturas erráticas si se miden valores inferiores a dicho umbral (ej. menos de 20 mH en el rango de 200 mH).
-
-        \item \textbf{Compensación de Inductancia Parásita (Rango 2 mH):} 
-        Para mediciones de alta precisión, considere la inductancia residual del circuito interno:
-        \begin{itemize}[label=$\circ$, nosep]
-            \item Cortocircuite los terminales de entrada y registre el valor residual (ej. $-15\,\mu$H).
-            \item Reste este valor de la lectura final. (\textit{Ejemplo: Si el residuo es $-15\,\mu$H, sume $15\,\mu$H al valor medido}).
-        \end{itemize}
-
-        \item \textbf{Bajas Inductancias:} Para evitar capacitancias parásitas, utilice cables de conexión extremadamente cortos.
-
-        \item \textbf{Limitaciones:} Este equipo mide inductancia pura, no el factor de calidad (\textbf{Q}). Evite medir inductancia en resistencias, ya que obtendrá lecturas erróneas.
+\notastecnicas{CONSIDERACIONES TÉCNICAS DE MEDICIÓN}{%
+    \begin{enumerate}[leftmargin=0.5cm, labelsep=0.2cm, itemsep=3pt]
+        \item \textbf{Valores desconocidos:} Inicie en \textbf{2 mH} e incremente hasta lectura estable.
+        \item \textbf{Límites de escala:} Rangos de 200 mH, 2 H y 20 H optimizados para valores $>$10\% del fondo de escala.
+        \item \textbf{Compensación parásita (2 mH):} Cortocircuite los terminales, registre el residuo y réstelo de la lectura final.
+        \item \textbf{Bajas inductancias:} Use cables de conexión extremadamente cortos para minimizar capacitancias parásitas.
+        \item \textbf{Limitación:} El equipo mide inductancia pura, no el factor de calidad (\textbf{Q}).
     \end{enumerate}
-    \vspace{5pt}
-\end{minipage}
-\endgroup
+}
 
-% --- 5. MEDICIÓN DE CAPACITANCIA (C) ---
-\newpage
 \subsection{Medición de Capacitancia (C)}
 
-% Bloque de Alerta de Seguridad (Prioridad Alta)
 \noindent
 \begingroup
 \color{red!80!black}
-\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
+\hspace{0.5cm}\vrule width 1.5pt\hspace{10pt}%
 \begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{2pt}
-    {\footnotesize \textbf{\faExclamationTriangle\ ADVERTENCIA DE SEGURIDAD}} \\
-    \scriptsize \textbf{DESCARGA DE CAPACITORES:} Asegúrese de que todo capacitor esté \textbf{completamente descargado} antes de conectarlo. Un componente cargado puede dañar de forma irreversible los circuitos de protección del equipo.
-    \vspace{2pt}
+    \vspace{3pt}
+    {\small\textbf{\faExclamationTriangle\ ADVERTENCIA DE SEGURIDAD}}\\
+    \footnotesize\textbf{DESCARGA DE CAPACITORES:} Asegúrese de que todo capacitor esté \textbf{completamente descargado} antes de conectarlo. Un componente cargado puede dañar irreversiblemente los circuitos de protección.
+    \vspace{3pt}
 \end{minipage}
 \endgroup
 
-\vspace{0.4cm}
+\vspace{6pt}
 
-\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
-    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
-    \item \textbf{Selección de Modo:} Verifique que el selector \textbf{L/C, R} (\textbf{3-4}) esté en la posición \textbf{"L/C"}.
-    \item \textbf{Rango Inicial:} Gire el selector de función (\textbf{3-3}) hacia el rango máximo esperado de capacitancia.
-    \item \textbf{Conexión y Polaridad:} 
-        \begin{itemize}[label=$\rightarrow$, nosep]
-            \item Conecte los clips de prueba a la entrada de medición (\textbf{3-5}).
-            \item \textbf{Nota crítica:} Observe la polaridad (+/-) al conectar capacitores electrolíticos o polarizados.
-        \end{itemize}
-    \item \textbf{Lectura:} Observe el valor en la pantalla (\textbf{3-1}). 
-    \begin{itemize}[label=\color{IndustrialBlue}$\rightarrow$, nosep]
-        \item Si aparece un \textbf{"1"} (fuera de rango), seleccione el rango inmediatamente superior para obtener la lectura.
-    \end{itemize}
+\begin{enumerate}[label=\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.4cm, itemsep=5pt]
+    \item \textbf{Encendido:} Deslice el interruptor (\textbf{3-2}) a la posición \textbf{``1''}.
+    \item \textbf{Selección de Modo:} Verifique que el selector (\textbf{3-4}) esté en \textbf{``L/C''}.
+    \item \textbf{Rango Inicial:} Gire el selector (\textbf{3-3}) al rango máximo esperado.
+    \item \textbf{Conexión y Polaridad:} Conecte los clips a la entrada (\textbf{3-5}). Respete la polaridad (+/--) en capacitores electrolíticos.
+    \item \textbf{Lectura:} Si aparece \textbf{``1''} (fuera de rango), seleccione el rango superior.
 \end{enumerate}
 
-% --- NOTAS TÉCNICAS DE MEDICIÓN (C) ---
-\vspace{0.4cm}
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\footnotesize \textbf{CONSIDERACIONES TÉCNICAS DE MEDICIÓN}} \\[0.2cm]
-    \scriptsize
-    \begin{enumerate}[leftmargin=0.4cm, labelsep=0.2cm, itemsep=0.1cm]
-        \item \textbf{Valores desconocidos:} Si el componente no está marcado, inicie en el rango de \textbf{2 nF} e incremente hasta obtener una lectura válida.
-        
-        \item \textbf{Límites de escala:} Para mantener la precisión nominal, elija el rango donde el valor medido represente más del 10\% del fondo de escala. Es normal obtener lecturas inconsistentes si mide valores por debajo de:
-        \begin{itemize}[label=$\circ$, nosep]
-            \item 2 nF en el rango de 200 nF | 0.02 $\mu$F en el rango de 2 $\mu$F.
-            \item 0.2 $\mu$F en el rango de 20 $\mu$F | 2 $\mu$F en el rango de 200 $\mu$F.
-        \end{itemize}
-
-        \item \textbf{Compensación de Capacitancia Parásita (2 nF):} 
-        Para alta precisión en valores bajos:
-        \begin{itemize}[label=$\circ$, nosep]
-            \item Mantenga los clips de prueba abiertos (sin conectar el componente) y registre el valor residual (ej. $15\,$pF).
-            \item Reste este valor de la lectura final obtenida.
-        \end{itemize}
-
-        \item \textbf{Diagnóstico de Fallas:} 
-        \begin{itemize}[label=$\circ$, nosep]
-            \item \textbf{Fugas:} Un capacitor con fugas de voltaje mostrará un valor mucho más alto de lo normal o sobre-rango ("1").
-            \item \textbf{Abierto:} Un componente en circuito abierto marcará cero en todos los rangos (o unos pocos pF en el rango de 2nF).
-        \end{itemize}
-
-        \item \textbf{Tolerancia y Cables:} Utilice conexiones cortas para evitar capacitancias parásitas externas. Recuerde que los capacitores electrolíticos suelen tener tolerancias muy amplias por diseño.
+\notastecnicas{CONSIDERACIONES TÉCNICAS DE MEDICIÓN}{%
+    \begin{enumerate}[leftmargin=0.5cm, labelsep=0.2cm, itemsep=3pt]
+        \item \textbf{Valores desconocidos:} Inicie en \textbf{2 nF} e incremente hasta lectura válida.
+        \item \textbf{Límites de escala:} El valor medido debe representar $>$10\% del fondo de escala para precisión nominal.
+        \item \textbf{Compensación parásita (2 nF):} Clips abiertos, registre el residuo ($\approx$15 pF) y réstelo de la lectura.
+        \item \textbf{Diagnóstico:} Fugas $\rightarrow$ valor elevado o sobre-rango. Abierto $\rightarrow$ cero o pocos pF.
+        \item \textbf{Cables cortos:} Reduzca conexiones para minimizar capacitancias externas.
     \end{enumerate}
-    \vspace{5pt}
-\end{minipage}
-\endgroup
+}
 
-% --- 6. MEDICIÓN DE RESISTENCIA (R) ---
 \newpage
 \subsection{Medición de Resistencia (R)}
 
-\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
-    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
-    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a la posición \textbf{"R"}.
-    \item \textbf{Configuración de Rango:} Gire el selector de función (\textbf{3-3}) hacia el rango máximo esperado.
-    \item \textbf{Conexión del Componente:} 
-        \begin{itemize}[label=$\rightarrow$, nosep]
-            \item Conecte los clips de prueba a la entrada de medición (\textbf{3-5}) y sujete la resistencia.
-            \item Alternativamente, inserte los terminales de la resistencia directamente en la \textbf{Entrada Directa (3-6)}.
-        \end{itemize}
-    \item \textbf{Lectura y Ajuste:} Observe el valor en la pantalla (\textbf{3-1}). 
-    \begin{itemize}[label=\color{IndustrialBlue}$\rightarrow$, nosep]
-        \item Si el display muestra \textbf{"1"}, seleccione el rango superior. Para optimizar la precisión, busque siempre el rango más bajo que permita una lectura.
-    \end{itemize}
+\begin{enumerate}[label=\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.4cm, itemsep=5pt]
+    \item \textbf{Encendido:} Deslice el interruptor (\textbf{3-2}) a la posición \textbf{``1''}.
+    \item \textbf{Selección de Modo:} Deslice el selector (\textbf{3-4}) a la posición \textbf{``R''}.
+    \item \textbf{Configuración de Rango:} Gire el selector (\textbf{3-3}) al rango máximo esperado.
+    \item \textbf{Conexión:} Mediante clips en (\textbf{3-5}), o inserte directamente en (\textbf{3-6}).
+    \item \textbf{Lectura:} Si aparece \textbf{``1''}, seleccione el rango superior. Use siempre el rango más bajo que permita lectura.
 \end{enumerate}
 
-\vspace{0.4cm}
-
-% --- NOTA TÉCNICA DE PRECISIÓN (R) ---
-\vspace{0.4cm}
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\footnotesize \textbf{CONSIDERACIONES DE PRECISIÓN}} \\[0.2cm]
-    \scriptsize
-    \begin{itemize}[leftmargin=0.4cm, labelsep=0.2cm]
-        \item \textbf{Compensación de Resistencia Parásita:} 
-        Para obtener mediciones de alta precisión en los rangos más bajos (especialmente en 20~$\Omega$ y 200~$\Omega$), es necesario restar la resistencia propia de los cables de prueba (\textit{stray resistance}).
-        
-        \item \textbf{Procedimiento:} 
-        Cortocircuite los clips de prueba, registre el valor mostrado en pantalla y réstelo del valor final de la medición del componente.
+\notastecnicas{CONSIDERACIONES DE PRECISIÓN}{%
+    \begin{itemize}[leftmargin=0.4cm, labelsep=0.2cm, itemsep=3pt]
+        \item \textbf{Compensación parásita:} En rangos bajos (20~$\Omega$ y 200~$\Omega$), cortocircuite los clips, registre el residuo y réstelo de la medición final.
     \end{itemize}
-    \vspace{5pt}
-\end{minipage}
-\endgroup
+}
 
-% --- 7. PROCEDIMIENTO DE MEDICIÓN DE DIODOS ---
-\newpage
+% ------------------------------------------------------------
 \section{MEDICIÓN DE DIODOS}
-
 \subsection{Procedimiento de Prueba}
 
-\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
-    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
-    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a la posición \textbf{"R"}.
-    \item \textbf{Rango de Diodo:} Gire el selector de función (\textbf{3-3}) a la posición marcada con el símbolo \textbf{$\rightarrow|-$}.
-    \item \textbf{Conexión:} Conecte el clip rojo al terminal positivo (\textbf{+}) y el clip negro al negativo (\textbf{-}).
-    \item \textbf{Evaluación Completa:} Para un diagnóstico correcto, realice ambas pruebas:
+\begin{enumerate}[label=\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.4cm, itemsep=5pt]
+    \item \textbf{Encendido:} Deslice el interruptor (\textbf{3-2}) a la posición \textbf{``1''}.
+    \item \textbf{Selección de Modo:} Deslice el selector (\textbf{3-4}) a la posición \textbf{``R''}.
+    \item \textbf{Rango de Diodo:} Gire el selector (\textbf{3-3}) a la posición \textbf{$\rightarrow|-$}.
+    \item \textbf{Conexión:} Clip rojo al terminal positivo (+), clip negro al negativo (--).
+    \item \textbf{Evaluación Completa:} Realice ambas pruebas para diagnóstico correcto.
 \end{enumerate}
 
-\vspace{0.4cm}
-
-% --- BLOQUE DE DIAGNÓSTICO (DIN STYLE) ---
-\noindent
-\begingroup
-\color{DarkGray}
-\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
-\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
-    \vspace{5pt}
-    {\footnotesize \textbf{GUÍA DE DIAGNÓSTICO DE DIODOS}} \\[0.2cm]
-    \scriptsize
-    \begin{itemize}[leftmargin=0.4cm, labelsep=0.2cm]
-        \item \textbf{A. Prueba de Polarización Directa:} Conecte el ánodo al rojo y el cátodo al negro.
+\notastecnicas{GUÍA DE DIAGNÓSTICO DE DIODOS}{%
+    \begin{itemize}[leftmargin=0.4cm, labelsep=0.2cm, itemsep=4pt]
+        \item \textbf{A. Polarización Directa} (Ánodo al rojo, Cátodo al negro):
         \begin{itemize}[label=$\circ$, nosep]
-            \item \textbf{Estado Bueno:} La pantalla muestra la caída de tensión directa ($V_F$) en voltios.
-            \item \textbf{Defectuoso:} Muestra ".000" (cortocircuito) o "1" (circuito abierto).
+            \item \textbf{Bueno:} Pantalla muestra $V_F$ en voltios.
+            \item \textbf{Defectuoso:} Muestra ``.000'' (cortocircuito) o ``1'' (abierto).
         \end{itemize}
-        
-        \item \textbf{B. Prueba de Polarización Inversa:} Invierta la conexión (Cátodo al rojo, Ánodo al negro).
+        \item \textbf{B. Polarización Inversa} (Cátodo al rojo, Ánodo al negro):
         \begin{itemize}[label=$\circ$, nosep]
-            \item \textbf{Estado Bueno:} La pantalla debe mostrar \textbf{"1"} (bloqueo de corriente).
-            \item \textbf{Defectuoso:} Muestra ".000" u otros valores numéricos.
+            \item \textbf{Bueno:} Pantalla muestra \textbf{``1''} (bloqueo de corriente).
+            \item \textbf{Defectuoso:} Muestra ``.000'' u otros valores numéricos.
         \end{itemize}
     \end{itemize}
-    \vspace{5pt}
-\end{minipage}
-\endgroup
+}
 
-% --- 8. MANTENIMIENTO ---
+% ------------------------------------------------------------
 \section{MANTENIMIENTO}
 
 \subsection{Consideraciones de Uso}
-\begin{itemize}[label=\color{IndustrialBlue}$\bullet$, leftmargin=1cm]
-    \item \textbf{Limitaciones Técnicas:} Este instrumento está diseñado para medir capacitancia e inductancia pura. No determina el factor de calidad (\textbf{Q}). Evite medir componentes reactivos en serie con resistencias, ya que las lecturas serán erróneas.
-    \item \textbf{Seguridad en Circuitos:} Al medir componentes integrados en placas, asegúrese de que el circuito esté \textbf{completamente desenergizado} antes de conectar los clips de prueba.
-    \item \textbf{Cuidado Ambiental:} En entornos con polvo, el equipo debe ser limpiado periódicamente. Evite la exposición prolongada al calor directo del sol para proteger la pantalla LCD y la carcasa.
+\begin{itemize}[label=\color{IndustrialBlue}$\bullet$, leftmargin=1.2cm, itemsep=5pt]
+    \item \textbf{Limitaciones Técnicas:} Mide capacitancia e inductancia pura. No determina el factor de calidad (\textbf{Q}). Evite medir componentes reactivos en serie con resistencias.
+    \item \textbf{Seguridad en Circuitos:} Asegúrese de que el circuito esté \textbf{completamente desenergizado} antes de conectar los clips.
+    \item \textbf{Cuidado Ambiental:} Limpie periódicamente en entornos con polvo. Evite exposición prolongada al calor solar directo.
 \end{itemize}
 
 \subsection{Reemplazo de Batería}
-\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm]
-    \item \textbf{Indicador de Batería Baja:} Cuando aparezca el aviso \textbf{"LOBAT"} en la esquina superior izquierda de la pantalla (\textbf{3-1}), es necesario reemplazar la batería. 
-    \begin{itemize}[label=$\rightarrow$, nosep]
-        \item \textit{Nota: El equipo mantendrá su precisión durante algunas horas después de la aparición del aviso antes de que las lecturas se vuelvan erráticas.}
-    \end{itemize}
-    \item \textbf{Procedimiento:} 
+\begin{enumerate}[label=\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.4cm, itemsep=5pt]
+    \item \textbf{Indicador de Batería Baja:} Al aparecer \textbf{``LOBAT''} en la esquina superior izquierda (\textbf{3-1}), reemplace la batería. El equipo mantendrá precisión algunas horas más antes de dar lecturas erráticas.
+    \item \textbf{Procedimiento:}
     \begin{itemize}[label=$\circ$, nosep]
-        \item Apague el equipo y desconecte cualquier componente de los terminales de entrada.
-        \item Retire el tornillo de la tapa de la batería (\textbf{3-7}) con un destornillador adecuado.
-        \item Reemplace por una batería de \textbf{9V} (NEDA 1604 o equivalente) y vuelva a colocar la tapa.
+        \item Apague el equipo y desconecte los componentes de los terminales.
+        \item Retire el tornillo de la tapa de batería (\textbf{3-7}) con destornillador adecuado.
+        \item Reemplace con batería \textbf{9V} (NEDA 1604 o equivalente) y recoloque la tapa.
     \end{itemize}
 \end{enumerate}
 
 \vfill
 \begin{center}
-    \footnotesize \color{DarkGray}
-    --- Fin del Manual Técnico --- \\
+    \footnotesize\color{DarkGray}
+    --- Fin del Manual Técnico ---\\[2pt]
     Manual digitalizado y optimizado por \textbf{Instrumentation Manuals Pro}
 \end{center}
 
-\vfill  
+\vfill
 \noindent\textit{* Calibración trazable bajo estándares internacionales de instrumentación.}
 
 \end{document}
