@@ -9,6 +9,7 @@
 \usepackage[hidelinks]{hyperref} 
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\usepackage{fontawesome5}
 
 % Configuración de página DIN
 \geometry{a4paper, total={160mm,247mm}, left=25mm, top=30mm}
@@ -378,7 +379,76 @@
 \end{minipage}
 \endgroup
 
-\vspace{0.8cm}
+% --- 5. MEDICIÓN DE CAPACITANCIA (C) ---
+\subsection{5.1 Medición de Capacitancia (C)}
+
+% Bloque de Alerta de Seguridad (Prioridad Alta)
+\noindent
+\begingroup
+\color{red!80!black}
+\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{2pt}
+    {\footnotesize \textbf{\faExclamationTriangle\ ADVERTENCIA DE SEGURIDAD}} \\
+    \scriptsize \textbf{DESCARGA DE CAPACITORES:} Asegúrese de que todo capacitor esté \textbf{completamente descargado} antes de conectarlo. Un componente cargado puede dañar de forma irreversible los circuitos de protección del equipo.
+    \vspace{2pt}
+\end{minipage}
+\endgroup
+
+\vspace{0.4cm}
+
+\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
+    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
+    \item \textbf{Selección de Modo:} Verifique que el selector \textbf{L/C, R} (\textbf{3-4}) esté en la posición \textbf{"L/C"}.
+    \item \textbf{Rango Inicial:} Gire el selector de función (\textbf{3-3}) hacia el rango máximo esperado de capacitancia.
+    \item \textbf{Conexión y Polaridad:} 
+        \begin{itemize}[label=$\rightarrow$, nosep]
+            \item Conecte los clips de prueba a la entrada de medición (\textbf{3-5}).
+            \item \textbf{Nota crítica:} Observe la polaridad (+/-) al conectar capacitores electrolíticos o polarizados.
+        \end{itemize}
+    \item \textbf{Lectura:} Observe el valor en la pantalla (\textbf{3-1}). 
+    \begin{itemize}[label=\color{IndustrialBlue}$\rightarrow$, nosep]
+        \item Si aparece un \textbf{"1"} (fuera de rango), seleccione el rango inmediatamente superior para obtener la lectura.
+    \end{itemize}
+\end{enumerate}
+
+% --- NOTAS TÉCNICAS DE MEDICIÓN (C) ---
+\vspace{0.4cm}
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\footnotesize \textbf{CONSIDERACIONES TÉCNICAS DE MEDICIÓN}} \\[0.2cm]
+    \scriptsize
+    \begin{enumerate}[leftmargin=0.4cm, labelsep=0.2cm, itemsep=0.1cm]
+        \item \textbf{Valores desconocidos:} Si el componente no está marcado, inicie en el rango de \textbf{2 nF} e incremente hasta obtener una lectura válida.
+        
+        \item \textbf{Límites de escala:} Para mantener la precisión nominal, elija el rango donde el valor medido represente más del 10\% del fondo de escala. Es normal obtener lecturas inconsistentes si mide valores por debajo de:
+        \begin{itemize}[label=$\circ$, nosep]
+            \item 2 nF en el rango de 200 nF | 0.02 $\mu$F en el rango de 2 $\mu$F.
+            \item 0.2 $\mu$F en el rango de 20 $\mu$F | 2 $\mu$F en el rango de 200 $\mu$F.
+        \end{itemize}
+
+        \item \textbf{Compensación de Capacitancia Parásita (2 nF):} 
+        Para alta precisión en valores bajos:
+        \begin{itemize}[label=$\circ$, nosep]
+            \item Mantenga los clips de prueba abiertos (sin conectar el componente) y registre el valor residual (ej. $15\,$pF).
+            \item Reste este valor de la lectura final obtenida.
+        \end{itemize}
+
+        \item \textbf{Diagnóstico de Fallas:} 
+        \begin{itemize}[label=$\circ$, nosep]
+            \item \textbf{Fugas:} Un capacitor con fugas de voltaje mostrará un valor mucho más alto de lo normal o sobre-rango ("1").
+            \item \textbf{Abierto:} Un componente en circuito abierto marcará cero en todos los rangos (o unos pocos pF en el rango de 2nF).
+        \end{itemize}
+
+        \item \textbf{Tolerancia y Cables:} Utilice conexiones cortas para evitar capacitancias parásitas externas. Recuerde que los capacitores electrolíticos suelen tener tolerancias muy amplias por diseño.
+    \end{enumerate}
+    \vspace{5pt}
+\end{minipage}
+\endgroup
 
 \vfill  
 \noindent\textit{* Calibración trazable bajo estándares internacionales de instrumentación.}
