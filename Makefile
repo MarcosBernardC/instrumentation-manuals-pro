@@ -8,16 +8,13 @@ all: $(PROJECTS)
 
 $(PROJECTS):
 	@echo "🔨 Compilando proyecto: $@"
-	@pdflatex -interaction=batchmode -output-directory=$(PROJECTS_DIR)/$@/src $(PROJECTS_DIR)/$@/src/*.tex
-	@echo "✅ Finalizado"
+	@cd $(PROJECTS_DIR)/$@/src && pdflatex -interaction=batchmode *.tex
+	@echo "✅ Finalizado en $(PROJECTS_DIR)/$@/src/"
 
 clean: $(CLEAN_PROJECTS)
 	@rm -f texput.log
 
 $(CLEAN_PROJECTS):
 	@$(eval PROJ := $(subst clean-,,$@))
-	@echo "🧹 Limpiando archivos temporales de: $(PROJ)"
-	@find $(PROJECTS_DIR)/$(PROJ)/src -type f -name "*.aux" -delete
-	@find $(PROJECTS_DIR)/$(PROJ)/src -type f -name "*.log" -delete
-	@find $(PROJECTS_DIR)/$(PROJ)/src -type f -name "*.out" -delete
-	@find $(PROJECTS_DIR)/$(PROJ)/src -type f -name "*.toc" -delete
+	@echo "扫 Limpiando: $(PROJ)"
+	@find $(PROJECTS_DIR)/$(PROJ)/src -type f \( -name "*.aux" -o -name "*.log" -name "*.out" -name "*.toc" \) -delete

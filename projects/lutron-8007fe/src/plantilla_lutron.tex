@@ -1,44 +1,330 @@
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
+\usepackage[spanish, english]{babel} % Para mantener términos técnicos si deseas
 \usepackage{geometry}
-\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref} 
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 
-% Fuentes y Estética
+% Configuración de página DIN
+\geometry{a4paper, total={160mm,247mm}, left=25mm, top=30mm}
+
+% Fuente tipo Helvetica
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-\usepackage[table]{xcolor}
-\usepackage{tcolorbox}
 
-% Colores Corporativos
+% Colores
+\definecolor{DarkGray}{RGB}{50, 50, 50}
+\definecolor{LightGray}{RGB}{240, 240, 240}
+\definecolor{AccentLine}{RGB}{100, 100, 100}
 \definecolor{IndustrialBlue}{RGB}{0, 51, 102}
 
-\title{Especificaciones Técnicas: Instrumentación Lutron}
-\author{Localización Técnica Profesional}
-\date{Febrero 2026}
+\graphicspath{{../imgs/}}
 
 \begin{document}
-\maketitle
 
-\section{Introducción}
-Este documento es una versión optimizada del manual de fábrica del modelo **8007fe**, rediseñada para mejorar la legibilidad y la precisión técnica mediante tipografía profesional.
+% --- PORTADA ---
+\thispagestyle{empty}
+\noindent{\color{AccentLine}\rule{\textwidth}{0.8pt}} \\[0.5cm]
+\noindent{\fontsize{10pt}{12pt}\selectfont \uppercase{Documentación Técnica | Control de Calidad}} \\[1.5cm]
 
-\section{Especificaciones Eléctricas}
+\noindent{\fontsize{14pt}{17pt}\selectfont \color{DarkGray} Inductancia $\cdot$ Capacitancia $\cdot$ Resistencia $\cdot$ Diodo} \\[0.4cm]
+\noindent{\fontsize{42pt}{45pt}\selectfont \textbf{Medidor LCR}} \\[0.2cm]
+\noindent{\fontsize{18pt}{22pt}\selectfont \color{gray} Modelo: \textbf{LCR-9083}} \vspace*{0.5cm} % Imagen más alta
+
 \begin{center}
-{\renewcommand{\arraystretch}{1.5} % Más espacio entre filas para legibilidad
-\begin{tabular}{|>{\columncolor{IndustrialBlue!10}\bfseries}l|l|l|}
-\hline
-\rowcolor{IndustrialBlue}
-\textcolor{white}{Rango} & \textcolor{white}{Resolución} & \textcolor{white}{Precisión} \\ \hline
-200.0 mT & 0.1 mT & $\pm$(5\% + 3d) \\ \hline
-2,000 mT & 1 mT & $\pm$(5\% + 3d) \\ \hline
-\end{tabular}}
+    \includegraphics[width=0.55\textwidth]{LCR-9083} 
+\end{center}
+\vfill 
+
+\newpage
+% --- PÁGINA 2: ÍNDICE ---
+\thispagestyle{empty}
+\noindent{\color{AccentLine}\rule{\textwidth}{0.4pt}} \\[0.3cm]
+\noindent \textbf{CONTENIDO DEL MANUAL (INDEX)}
+\vspace{0.2cm}
+\begingroup
+\hypersetup{linkcolor=black}
+\makeatletter
+\renewcommand{\@dotsep}{10000} 
+\makeatother
+\tableofcontents 
+\endgroup
+
+\vfill
+\noindent{\small \textbf{Lutron Precision Components} \\ High Reliability Measurement Systems}
+
+\newpage
+% Reiniciar contador de páginas
+\pagenumbering{arabic}
+
+% --- SECCIÓN DE CARACTERÍSTICAS (FEATURES) ---
+\section{CARACTERÍSTICAS (FEATURES)}
+\label{sec:features}
+
+\begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1cm, itemsep=4pt]
+    \item \textbf{Multifunción Digital:} Pantalla digital con alimentación por batería; permite mediciones de Inductancia, Capacitancia, Resistencia y prueba de Diodos.
+    \item \textbf{Circuito LSI:} Incorpora circuitería de integración a gran escala (LSI) que garantiza una alta confiabilidad y durabilidad operativa.
+    \item \textbf{Visibilidad LCD:} Pantalla diseñada para lecturas claras incluso en condiciones de alta luminosidad ambiental.
+    \item \textbf{Protección de Entrada:} Sistema integrado de protección contra sobrecarga en todos los rangos.
+    \item \textbf{Selector Ergonómico:} Selector de funciones tipo rotativo para una operación simplificada y rápida.
+    \item \textbf{Indicador de Estado:} Sistema de alerta de batería baja para prevenir errores de medición.
+\end{itemize}
+
+\vspace{0.8cm}
+
+% --- ESPECIFICACIONES ---
+\section{ESPECIFICACIONES}
+\label{sec:specifications}
+
+\subsection{Especificaciones Generales}
+
+\begin{center}
+    {\renewcommand{\arraystretch}{1.6} % Altura de celda para mayor comodidad visual
+    \small
+    \begin{tabular}{l p{9.5cm}}
+        \rowcolor{LightGray}
+        \textbf{Característica} & \textbf{Detalle Técnico} \\
+        Display & LCD de 18 mm (0.7"), lectura máxima de 1999. \\
+        Mediciones & \textbf{Inductancia:} 2 mH a 2 H (5 rangos). \newline 
+                     \textbf{Capacitancia:} 2 nF a 200 $\mu$F (6 rangos). \newline 
+                     \textbf{Resistencia:} 200 $\Omega$ a 20 M$\Omega$ (6 rangos). \newline 
+                     Prueba de diodo. \\
+        Sobre-entrada & Indicación de marca "1" en pantalla. \\
+        Tiempo de Muestreo & Aproximadamente 0.4 segundos. \\
+        Temp. y Humedad & 0 $^\circ$C a 50 $^\circ$C (32 $^\circ$F a 122 $^\circ$F). \newline Humedad relativa menor al 80\% RH. \\
+        Alimentación & Batería 006 P DC 9V (Heavy Duty). \\
+        Dimensiones & 185 x 87 x 39 mm (7.3 x 3.4 x 1.5 pulgadas). \\
+        Peso & 280 g / 0.62 LB. \\
+        Consumo Energético & Medición R: aprox. 9 mA máx. \newline Medición L \& C: aprox. 13 mA máx. \\
+        Accesorios Incluidos & Manual de instrucciones (1 un), Clips de prueba tipo cocodrilo (1 par). \\
+        \hline
+    \end{tabular}}
 \end{center}
 
-\section{Notas de Seguridad}
-\begin{itemize}
-    \item No exceder el límite máximo de entrada del sensor.
-    \item Utilizar baterías de 9V certificadas para garantizar la estabilidad de la lectura.
+
+\subsection{Especificaciones Eléctricas (23 $\pm$ 5 $^{\circ}$C)}
+
+% --- A. INDUCTANCIA ---
+\subsubsection{A. Inductancia}
+\begin{center}
+    {\renewcommand{\arraystretch}{1.5} \small
+    \begin{tabular}{l l l l l}
+        \rowcolor{LightGray} \textbf{Rango} & \textbf{Visualización} & \textbf{Resolución} & \textbf{Precisión} & \textbf{Límite Res.} \\
+        * 2 mH & 0.02 mH - 2 mH & 1 $\mu$H & $\pm$(3\% + 3d) & $<$ 2 $\Omega$ \\
+        20 mH & 2 mH - 20 mH & 10 $\mu$H & $\pm$(3\% + 3d) & $<$ 100 $\Omega$ \\
+        200 mH & 20 mH - 200 mH & 100 $\mu$H & $\pm$(3\% + 3d) & $<$ 500 $\Omega$ \\
+        2 H & 0.2 H - 2 H & 1 mH & $\pm$(3\% + 3d) & --- \\
+        20 H & 2 H - 20 H & 10 mH & $\pm$(5\% + 5d) & --- \\ \hline
+    \end{tabular}}
+\end{center}
+
+\vspace{0.6cm}
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} % Sangría inicial
+\vrule width 2pt \hspace{15pt} % Barra lateral de acento
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\small \textbf{NOTAS TÉCNICAS Y COMPENSACIÓN}} \\[0.2cm]
+    
+    \begin{tabular}{@{}p{6cm} p{6cm}}
+        \footnotesize $\bullet$ \textbf{Unidades:} $\mu$H ($10^{-6}$H), mH ($10^{-3}$H) & 
+        \footnotesize $\bullet$ \textbf{Frecuencia:} $\approx$ 200 Hz \\
+        \footnotesize $\bullet$ \textbf{Parásita (2 mH):} 0 $\mu$H & 
+        \footnotesize $\bullet$ \textbf{Cortocircuito:} Valor en corto \\
+    \end{tabular}
+    
+    \vspace{0.3cm}
+    \footnotesize
+    \textbf{Procedimiento:} Para el rango de 2 mH, reste la \textbf{inductancia parásita} de la lectura del equipo:
+    
+    \vspace{0.3cm}
+    \textit{Ejemplo práctico:} \\
+    \scalebox{0.95}{
+        \fboxsep=8pt\colorbox{LightGray}{
+            Lectura: 7 $\mu$H \quad -- \quad Corto: $-15$ $\mu$H \quad $\rightarrow$ \quad \textbf{Valor Real: 22 $\mu$H}
+        }
+    }
+    \vspace{5pt}
+\end{minipage}
+\endgroup
+\vspace{0.8cm}
+
+\vspace{0.6cm}
+
+% --- B. CAPACITANCIA ---
+\subsubsection{B. Capacitancia}
+\begin{center}
+    {\renewcommand{\arraystretch}{1.5} \small
+    \begin{tabular}{l l l l l}
+        \rowcolor{LightGray} \textbf{Rango} & \textbf{Visualización} & \textbf{Resolución} & \textbf{Frecuencia} & \textbf{Precisión} \\
+        * 2 nF & 10 pF - 2 nF & 1 pF & 200 Hz & $\pm$(3\% + 3d) \\
+        20 nF & 200 pF - 20 nF & 10 pF & 200 Hz & $\pm$(3\% + 3d) \\
+        200 nF & 2 nF - 200 nF & 100 pF & 200 Hz & $\pm$(3\% + 3d) \\
+        2 $\mu$F & 0.02 $\mu$F - 2 $\mu$F & 1 nF & 200 Hz & $\pm$(3\% + 3d) \\
+        20 $\mu$F & 0.2 $\mu$F - 20 $\mu$F & 10 nF & 200 Hz & $\pm$(3\% + 3d) \\
+        200 $\mu$F & 2 $\mu$F - 200 $\mu$F & 100 nF & 30 Hz & $\pm$(3\% + 3d) \\ \hline
+    \end{tabular}}
+\end{center}
+
+\vspace{0.6cm}
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} % Sangría inicial
+\vrule width 2pt \hspace{15pt} % Barra lateral de acento
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\small \textbf{NOTAS TÉCNICAS Y COMPENSACIÓN}} \\[0.2cm]
+    
+    \begin{tabular}{@{}p{6cm} p{6cm}}
+        \footnotesize $\bullet$ \textbf{Unidades:} pF ($10^{-12}$F), nF ($10^{-9}$F), $\mu$F ($10^{-6}$F) & 
+        \footnotesize $\bullet$ \textbf{Frecuencia:} Ver tabla de rangos \\
+        \footnotesize $\bullet$ \textbf{Parásita (2 nF):} 30 pF & 
+        \footnotesize $\bullet$ \textbf{Circuito Abierto:} Valor en abierto \\
+    \end{tabular}
+    
+    \vspace{0.3cm}
+    \footnotesize
+    \textbf{Procedimiento:} Para el rango de 2 nF, reste la \textbf{capacitancia parásita} de la lectura del equipo para obtener el valor real:
+    
+    \vspace{0.3cm}
+    \textit{Ejemplo práctico:} \\
+    \scalebox{0.95}{
+        \fboxsep=8pt\colorbox{LightGray}{
+            Lectura: 32 pF \quad -- \quad Abierto: 12 pF \quad $\rightarrow$ \quad \textbf{Valor Real: 20 pF}
+        }
+    }
+    \vspace{5pt}
+\end{minipage}
+\endgroup
+\vspace{0.8cm}
+
+% --- C. RESISTENCIA ---
+\subsubsection{C. Resistencia}
+\begin{center}
+    {\renewcommand{\arraystretch}{1.5} \small
+    \begin{tabular}{l l l l}
+        \rowcolor{LightGray} \textbf{Rango} & \textbf{Resolución} & \textbf{Voltaje Circ. Abierto} & \textbf{Precisión} \\
+        200 $\Omega$ & 0.1 $\Omega$ & & \\
+        2 k$\Omega$   & 1 $\Omega$   & & \\
+        20 k$\Omega$  & 10 $\Omega$  & \centering Approx. DC 3 V & \\
+        200 k$\Omega$ & 100 $\Omega$ & & $\pm$(2\% + 3d) \\
+        2000 k$\Omega$ & 1 k$\Omega$ & & \\
+        20 M$\Omega$  & 10 k$\Omega$ & \centering Approx. DC 1.5 V & \\ \hline
+    \end{tabular}}
+\end{center}
+
+% --- D. PRUEBA DE DIODO ---
+\subsubsection{D. Prueba de Diodo}
+\begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1cm, nosep]
+    \item \textbf{Funcionalidad:} Prueba de conducción y estado de componentes (bueno/defectuoso).
+    \item \textbf{Medición $V_F$:} Lectura aproximada del voltaje de umbral (Forward Voltage).
+    \item \textbf{Voltaje de circuito abierto:} DC 3 V.
 \end{itemize}
+
+\vspace{0.8cm}
+
+% --- NOTA ÚNICA DE CALIBRACIÓN (CIERRE DE ESPECIFICACIONES) ---
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} \vrule width 2pt \hspace{15pt}
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\small \textbf{NOTAS SOBRE AJUSTE Y TRAZABILIDAD (L/C)}} \\[0.2cm]
+    \footnotesize
+    \textbf{a. Ajuste de Precisión:} Aunque la frecuencia de prueba interna es de $\approx$ 250 Hz, los ajustes se comparan con estándares de referencia según los siguientes criterios:
+    
+    \vspace{0.2cm}
+    \begin{center}
+        \begin{tabular}{l l l}
+            \rowcolor{LightGray!50} \textbf{Función} & \textbf{Rangos} & \textbf{Frecuencia Estándar} \\
+            Capacitancia / Inductancia & Bajos (hasta 2 $\mu$F / 2 H) & 1 kHz \\
+            Capacitancia / Inductancia & Altos (20 $\mu$F / 20 H y sup.) & 100 Hz \\
+        \end{tabular}
+    \end{center}
+
+    \vspace{0.2cm}
+    \textbf{b. Condiciones de Entorno:} Precisiones garantizadas bajo intensidad de campo RF $<$ 3 V/M y frecuencias $<$ 30 MHz.
+    \vspace{5pt}
+\end{minipage}
+\endgroup
+
+\newpage
+\section{DESCRIPCIÓN DEL PANEL FRONTAL}
+\label{sec:panel}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=1cm]
+    % --- IMAGEN DEL MEDIDOR ---
+    % Se asume que la imagen está en imgs/LCR-9083.jpg relativo a la carpeta src
+    \node[anchor=south west, inner sep=0pt] (imagen) at (0,0) {
+        \includegraphics[width=0.55\textwidth]{../imgs/LCR-9083.jpg}
+    };
+
+    % Sistema de coordenadas relativo sobre la imagen
+    \begin{scope}[x={(imagen.south east)},y={(imagen.north west)}]
+        
+        % --- ESTILO DIN PRO (CON LÍNEAS MÁS GRUESAS) ---
+        \tikzset{
+            % Línea sólida, grosor medio (Mittel), color neutro profesional
+            linea_ref/.style={-, DarkGray, line width=1.2pt}, 
+            % Punto de contacto ligeramente más grande para equilibrar el grosor
+            punto_contacto/.style={circle, fill=DarkGray, inner sep=1.5pt},
+            % Texto sutil y limpio
+            texto/.style={font=\sffamily\scriptsize\bfseries, DarkGray, align=center}
+        }
+
+        % --- PUNTOS DE REFERENCIA (Tus coordenadas mejoradas) ---
+
+        % 3-1 Pantalla (Display)
+        \draw[linea_ref] (0.25, 0.82) -- ++(-0.25, 0) node[left, texto] {3-1 PANTALLA};
+        \node[punto_contacto] at (0.25, 0.82) {}; 
+
+        % 3-4 Selector L/C o R
+        \draw[linea_ref] (0.27, 0.69) -- ++(-0.27, 0) node[left, texto] {3-4 SELECTOR\\L/C o R};
+        \node[punto_contacto] at (0.27, 0.69) {};
+
+        % 3-2 Interruptor Power
+        \draw[linea_ref] (0.7, 0.69) -- ++(0.25, 0) node[right, texto] {3-2 INTERRUPTOR\\POWER};
+        \node[punto_contacto] at (0.7, 0.69) {};
+
+        % 3-3 Selector de Rangos (Perilla)
+        \draw[linea_ref] (0.49, 0.51) -- ++(-0.49, 0) node[left, texto] {3-3 SELECTOR\\DE FUNCIÓN};
+        \node[punto_contacto] at (0.49, 0.51) {};
+
+        % 3-5 Terminales de Clip
+        \draw[linea_ref] (0.48, 0.27) -- ++(-0.46, 0) node[left, texto] {3-5 ENTRADA\\POR CLIPS};
+        \node[punto_contacto] at (0.48, 0.27) {};
+
+        % 3-6 Terminales Directas
+        \draw[linea_ref] (0.69, 0.334) -- ++(0.28, 0) node[right, texto] {3-6 ENTRADA\\DIRECTA};
+        \node[punto_contacto] at (0.69, 0.334) {};
+
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- LEYENDA TÉCNICA (Sustituye la lista anterior por esta) ---
+\begin{itemize}[leftmargin=1.5cm, labelsep=0.5cm]
+    \item[\textbf{3-1.}] \textbf{Pantalla:} LCD de 18 mm con lectura máxima de 1999.
+    \item[\textbf{3-2.}] \textbf{Interruptor Power:} Encendido y apagado del equipo.
+    \item[\textbf{3-3.}] \textbf{Selector de Función:} Perilla rotativa para selección de rangos.
+    \item[\textbf{3-4.}] \textbf{Selector L/C o R:} Define el tipo de medición principal.
+    \item[\textbf{3-5.}] \textbf{Entrada por Clips:} Terminales para conexión tipo cocodrilo.
+    \item[\textbf{3-6.}] \textbf{Entrada Directa:} Ranuras para inserción de componentes.
+\end{itemize}
+
+\vfill  
+\noindent\textit{* Calibración trazable bajo estándares internacionales de instrumentación.}
 
 \end{document}
