@@ -31,6 +31,32 @@
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
     \node[shape=circle,fill=DarkGray,inner sep=1.2pt] (char) {\textcolor{white}{\fontsize{7}{8}\selectfont #1}};}}
 
+\usepackage{tocloft}
+
+% 1. Activar los puntos de guía (dots) para las secciones
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+
+% 2. Personalizar el título del índice (en lugar de \@cftmaketoc)
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\Large} % Fuente del título
+\renewcommand{\cftaftertoctitle}{\hfill}               % Centrado
+\renewcommand{\contentsname}{CONTENIDO DEL MANUAL (INDEX)} % El texto
+\setlength{\cftbeforetoctitleskip}{0.3cm}
+\setlength{\cftaftertoctitleskip}{0.8cm}
+
+% 3. Estilo de los números de página y títulos
+\renewcommand{\cftsecfont}{\small\bfseries\color{DarkGray}}
+\renewcommand{\cftsecpagefont}{\small\bfseries\color{DarkGray}}
+\renewcommand{\cftsubsecfont}{\footnotesize\color{black}}
+
+% Aumentar el espacio antes de cada sección en el índice
+\setlength{\cftbeforesecskip}{0.4cm} 
+
+% Aumentar el espacio antes de las subsecciones (opcional, para que no queden pegadas)
+\setlength{\cftbeforesubsecskip}{0.1cm}
+
+% Quitar la negrita de los números de página para un look más limpio (DIN Style)
+\renewcommand{\cftsecpagefont}{\small\fontfamily{phv}\selectfont}
+
 \begin{document}
 
 % --- PORTADA ---
@@ -116,7 +142,7 @@
 \subsection{Especificaciones Eléctricas (23 $\pm$ 5 $^{\circ}$C)}
 
 % --- A. INDUCTANCIA ---
-\subsubsection{A. Inductancia}
+\subsubsection{Inductancia}
 \begin{center}
     {\renewcommand{\arraystretch}{1.5} \small
     \begin{tabular}{l l l l l}
@@ -165,7 +191,7 @@
 \vspace{0.6cm}
 
 % --- B. CAPACITANCIA ---
-\subsubsection{B. Capacitancia}
+\subsubsection{Capacitancia}
 \begin{center}
     {\renewcommand{\arraystretch}{1.5} \small
     \begin{tabular}{l l l l l}
@@ -213,7 +239,7 @@
 \vspace{0.8cm}
 
 % --- C. RESISTENCIA ---
-\subsubsection{C. Resistencia}
+\subsubsection{Resistencia}
 \begin{center}
     {\renewcommand{\arraystretch}{1.5} \small
     \begin{tabular}{l l l l}
@@ -228,7 +254,7 @@
 \end{center}
 
 % --- D. PRUEBA DE DIODO ---
-\subsubsection{D. Prueba de Diodo}
+\subsubsection{Prueba de Diodo}
 \begin{itemize}[label=\small\color{IndustrialBlue}$\bullet$, leftmargin=1cm, nosep]
     \item \textbf{Funcionalidad:} Prueba de conducción y estado de componentes (bueno/defectuoso).
     \item \textbf{Medición $V_F$:} Lectura aproximada del voltaje de umbral (Forward Voltage).
@@ -332,9 +358,10 @@
 
 \newpage
 \section{PROCEDIMIENTO DE MEDICIÓN}
+\label{sec:operacion}
 
 % --- 4.1 INDUCTANCIA ---
-\subsection{4.1 Medición de Inductancia (L)}
+\subsection{Medición de Inductancia (L)}
 
 \begin{enumerate}[label=\protect\circled{\arabic*}, leftmargin=1.2cm, itemsep=0.3cm]
     \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
@@ -380,7 +407,8 @@
 \endgroup
 
 % --- 5. MEDICIÓN DE CAPACITANCIA (C) ---
-\subsection{5.1 Medición de Capacitancia (C)}
+\newpage
+\subsection{Medición de Capacitancia (C)}
 
 % Bloque de Alerta de Seguridad (Prioridad Alta)
 \noindent
@@ -451,7 +479,8 @@
 \endgroup
 
 % --- 6. MEDICIÓN DE RESISTENCIA (R) ---
-\subsection{6.1 Medición de Resistencia (R)}
+\newpage
+\subsection{Medición de Resistencia (R)}
 
 \begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
     \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
@@ -490,6 +519,79 @@
     \vspace{5pt}
 \end{minipage}
 \endgroup
+
+% --- 7. PROCEDIMIENTO DE MEDICIÓN DE DIODOS ---
+\newpage
+\section{MEDICIÓN DE DIODOS}
+
+\subsection{Procedimiento de Prueba}
+
+\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm, itemsep=0.3cm]
+    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
+    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a la posición \textbf{"R"}.
+    \item \textbf{Rango de Diodo:} Gire el selector de función (\textbf{3-3}) a la posición marcada con el símbolo \textbf{$\rightarrow|-$}.
+    \item \textbf{Conexión:} Conecte el clip rojo al terminal positivo (\textbf{+}) y el clip negro al negativo (\textbf{-}).
+    \item \textbf{Evaluación Completa:} Para un diagnóstico correcto, realice ambas pruebas:
+\end{enumerate}
+
+\vspace{0.4cm}
+
+% --- BLOQUE DE DIAGNÓSTICO (DIN STYLE) ---
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\footnotesize \textbf{GUÍA DE DIAGNÓSTICO DE DIODOS}} \\[0.2cm]
+    \scriptsize
+    \begin{itemize}[leftmargin=0.4cm, labelsep=0.2cm]
+        \item \textbf{A. Prueba de Polarización Directa:} Conecte el ánodo al rojo y el cátodo al negro.
+        \begin{itemize}[label=$\circ$, nosep]
+            \item \textbf{Estado Bueno:} La pantalla muestra la caída de tensión directa ($V_F$) en voltios.
+            \item \textbf{Defectuoso:} Muestra ".000" (cortocircuito) o "1" (circuito abierto).
+        \end{itemize}
+        
+        \item \textbf{B. Prueba de Polarización Inversa:} Invierta la conexión (Cátodo al rojo, Ánodo al negro).
+        \begin{itemize}[label=$\circ$, nosep]
+            \item \textbf{Estado Bueno:} La pantalla debe mostrar \textbf{"1"} (bloqueo de corriente).
+            \item \textbf{Defectuoso:} Muestra ".000" u otros valores numéricos.
+        \end{itemize}
+    \end{itemize}
+    \vspace{5pt}
+\end{minipage}
+\endgroup
+
+% --- 8. MANTENIMIENTO ---
+\section{MANTENIMIENTO}
+
+\subsection{Consideraciones de Uso}
+\begin{itemize}[label=\color{IndustrialBlue}$\bullet$, leftmargin=1cm]
+    \item \textbf{Limitaciones Técnicas:} Este instrumento está diseñado para medir capacitancia e inductancia pura. No determina el factor de calidad (\textbf{Q}). Evite medir componentes reactivos en serie con resistencias, ya que las lecturas serán erróneas.
+    \item \textbf{Seguridad en Circuitos:} Al medir componentes integrados en placas, asegúrese de que el circuito esté \textbf{completamente desenergizado} antes de conectar los clips de prueba.
+    \item \textbf{Cuidado Ambiental:} En entornos con polvo, el equipo debe ser limpiado periódicamente. Evite la exposición prolongada al calor directo del sol para proteger la pantalla LCD y la carcasa.
+\end{itemize}
+
+\subsection{Reemplazo de Batería}
+\begin{enumerate}[label=\protect\small\color{IndustrialBlue}\bfseries\arabic*., leftmargin=1.2cm]
+    \item \textbf{Indicador de Batería Baja:} Cuando aparezca el aviso \textbf{"LOBAT"} en la esquina superior izquierda de la pantalla (\textbf{3-1}), es necesario reemplazar la batería. 
+    \begin{itemize}[label=$\rightarrow$, nosep]
+        \item \textit{Nota: El equipo mantendrá su precisión durante algunas horas después de la aparición del aviso antes de que las lecturas se vuelvan erráticas.}
+    \end{itemize}
+    \item \textbf{Procedimiento:} 
+    \begin{itemize}[label=$\circ$, nosep]
+        \item Apague el equipo y desconecte cualquier componente de los terminales de entrada.
+        \item Retire el tornillo de la tapa de la batería (\textbf{3-7}) con un destornillador adecuado.
+        \item Reemplace por una batería de \textbf{9V} (NEDA 1604 o equivalente) y vuelva a colocar la tapa.
+    \end{itemize}
+\end{enumerate}
+
+\vfill
+\begin{center}
+    \footnotesize \color{DarkGray}
+    --- Fin del Manual Técnico --- \\
+    Manual digitalizado y optimizado por \textbf{Instrumentation Manuals Pro}
+\end{center}
 
 \vfill  
 \noindent\textit{* Calibración trazable bajo estándares internacionales de instrumentación.}
