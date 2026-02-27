@@ -59,7 +59,8 @@ make clean
 
 Haz clic en los enlaces para comparar la evolución del documento directamente en el repositorio:
 
-- **Lutron LCR-9083 (Ref. 8007fe):** - [📄 Manual de Fábrica (Original)](./projects/lutron-8007fe/original/8007fe.pdf)
+- **Lutron LCR-9083 (Ref. 8007fe):**
+  - [📄 Manual de Fábrica (Original)](./projects/lutron-8007fe/original/8007fe.pdf)
   - [🚀 Rediseño Pro (LaTeX)](./projects/lutron-8007fe/src/plantilla_lutron.pdf)
 
 ---
