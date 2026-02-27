@@ -25,6 +25,11 @@
 
 \graphicspath{{../imgs/}}
 
+\usepackage{tikz}
+% Definición de círculos para los pasos
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,fill=DarkGray,inner sep=1.2pt] (char) {\textcolor{white}{\fontsize{7}{8}\selectfont #1}};}}
+
 \begin{document}
 
 % --- PORTADA ---
@@ -323,6 +328,57 @@
     \item[\textbf{3-5.}] \textbf{Entrada por Clips:} Terminales para conexión tipo cocodrilo.
     \item[\textbf{3-6.}] \textbf{Entrada Directa:} Ranuras para inserción de componentes.
 \end{itemize}
+
+\newpage
+\section{PROCEDIMIENTO DE MEDICIÓN}
+
+% --- 4.1 INDUCTANCIA ---
+\subsection{4.1 Medición de Inductancia (L)}
+
+\begin{enumerate}[label=\protect\circled{\arabic*}, leftmargin=1.2cm, itemsep=0.3cm]
+    \item \textbf{Encendido:} Deslice el interruptor de encendido (\textbf{3-2}) a la posición \textbf{"1"}.
+    \item \textbf{Selección de Modo:} Deslice el selector \textbf{L/C, R} (\textbf{3-4}) a la posición \textbf{"L/C"}.
+    \item \textbf{Rango Inicial:} Gire el selector de función (\textbf{3-3}) hasta el rango máximo esperado de inductancia. 
+    \item \textbf{Conexión:} Conecte los clips de prueba (tipo cocodrilo) a la entrada de medición (\textbf{3-5}) y luego sujete el inductor a medir.
+    \item \textbf{Lectura:} Observe el valor en la pantalla (\textbf{3-1}). 
+    \begin{itemize}[label=$\rightarrow$, nosep]
+        \item Si aparece un \textbf{"1"} en el display, indica que la medición está fuera de rango (\textit{Out-of-Range}). Seleccione el siguiente rango superior para obtener una lectura.
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.4cm}
+
+% --- NOTAS TÉCNICAS DE MEDICIÓN (L) ---
+\vspace{0.4cm}
+\noindent
+\begingroup
+\color{DarkGray}
+\hspace{0.5cm} \vrule width 1.5pt \hspace{10pt}
+\begin{minipage}{\dimexpr\textwidth-25pt-0.5cm\relax}
+    \vspace{5pt}
+    {\footnotesize \textbf{CONSIDERACIONES TÉCNICAS DE MEDICIÓN}} \\[0.2cm]
+    \scriptsize
+    \begin{enumerate}[leftmargin=0.4cm, labelsep=0.2cm, itemsep=0.1cm]
+        \item \textbf{Valores desconocidos:} Si el inductor no posee marcado, inicie en el rango de \textbf{2 mH} e incremente la escala hasta obtener una lectura estable.
+        
+        \item \textbf{Límites de escala:} Los rangos de \textbf{200 mH}, \textbf{2 H} y \textbf{20 H} están optimizados para mediciones superiores al 10\% de su fondo de escala. Es normal obtener lecturas erráticas si se miden valores inferiores a dicho umbral (ej. menos de 20 mH en el rango de 200 mH).
+
+        \item \textbf{Compensación de Inductancia Parásita (Rango 2 mH):} 
+        Para mediciones de alta precisión, considere la inductancia residual del circuito interno:
+        \begin{itemize}[label=$\circ$, nosep]
+            \item Cortocircuite los terminales de entrada y registre el valor residual (ej. $-15\,\mu$H).
+            \item Reste este valor de la lectura final. (\textit{Ejemplo: Si el residuo es $-15\,\mu$H, sume $15\,\mu$H al valor medido}).
+        \end{itemize}
+
+        \item \textbf{Bajas Inductancias:} Para evitar capacitancias parásitas, utilice cables de conexión extremadamente cortos.
+
+        \item \textbf{Limitaciones:} Este equipo mide inductancia pura, no el factor de calidad (\textbf{Q}). Evite medir inductancia en resistencias, ya que obtendrá lecturas erróneas.
+    \end{enumerate}
+    \vspace{5pt}
+\end{minipage}
+\endgroup
+
+\vspace{0.8cm}
 
 \vfill  
 \noindent\textit{* Calibración trazable bajo estándares internacionales de instrumentación.}
