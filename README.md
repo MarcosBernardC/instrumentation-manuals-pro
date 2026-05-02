@@ -24,17 +24,7 @@ El proceso de transformación se basa en tres pilares de ingeniería:
 
 ### Asset 01: Lutron LCR-9083 (Ref. 8007fe)
 Optimización completa de la interfaz visual y procedimientos de medición.
-
-<div align="center">
-  <img src="projects/lutron-8007fe/imgs/LCR-9083_partes_pro.png" alt="TikZ Vector Mapping" width="85%">
-  <p><em>Fig 1. Mapeo vectorial de componentes mediante TikZ. Control de precisión absoluta.</em></p>
-</div>
-
-<div align="center">
-  <img src="projects/lutron-8007fe/imgs/LCR-9083_portada_pro.png" alt="Front Page" width="45%">
-  <img src="projects/lutron-8007fe/imgs/LCR-9083_proc_medicion_pro.png" alt="Procedures" width="45%">
-  <p><em>Fig 2. Estructura final: Portada institucional y maquetación de procedimientos operativos.</em></p>
-</div>
+![Render 2D Preliminar](./projects/lutron-8007fe/imgs/LCR-9083_partes_pro.png)
 
 ---
 
