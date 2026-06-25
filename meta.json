@@ -1,22 +1,42 @@
 {
-      "id": "03",
-      "title": "Industrial Instrumentation Standards",
-      "category": "Industrial R&D",
-      "visibility": "PUBLIC",
-      "domain": ["DOCS", "STAND"],
-      "status": {
-        "state": "ARCHIVE",
-        "label": "ISO-9001 Compliant"
+  "id": "03",
+  "title": "Industrial Instrumentation Standards",
+  "category": "Industrial R&D",
+  "visibility": "PUBLIC",
+  "tags": "DOCUMENTATION",
+  "domain": ["Metrology", "Industrial Automation"],
+  "status": {
+    "activity": "COMPLETED",
+    "maturity": "STABLE",
+    "version": "0.1.0",
+    "progress_pct": 100,
+    "scopes": {
+      "Template_Design": {
+        "status": "STABLE",
+        "progress": 100
       },
-      "environment": {
-        "os": "Fedora 43",
-        "shell": "fish",
-        "last_update": "2026-02-27 // 08:39 PET"
+      "Asset_Processing": {
+        "status": "STABLE",
+        "progress": 100
       },
-      "links": {
-        "ssh": "git@github.com:MarcosBernardC/instrumentation-manuals-pro.git",
-        "https": "https://github.com/MarcosBernardC/instrumentation-manuals-pro"
-      },
-      "stack": ["LuaLaTeX", "TikZ/PGF", "Makefile", "Vector Graphics"],
-      "description": "Protocolos de optimización y estandarización de activos documentales."
+      "Automation_Build": {
+        "status": "STABLE",
+        "progress": 100
+      }
     }
+  },
+  "environment": {
+    "os": "Fedora 43",
+    "shell": "fish"
+  },
+  "repository": {
+    "ssh": "git@github.com:MarcosBernardC/instrumentation-manuals-pro.git",
+    "https": "https://github.com/MarcosBernardC/instrumentation-manuals-pro"
+  },
+  "stack": [
+    "LuaLaTeX",
+    "TikZ/PGF",
+    "Makefile"
+  ],
+  "description": "Protocolos de optimización y estandarización."
+}
